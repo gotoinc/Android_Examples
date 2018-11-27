@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">reques.in(Java-MVP)</string>
+
+    <!--API ERRORS-->
+    <string name="error_unknown">Unknown error. Please, try again later</string>
+    <!--END API ERRORS-->
+</resources>
