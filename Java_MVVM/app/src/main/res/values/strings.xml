@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">reques.in(Java-MVVM)</string>
+
+    <string name="error_message">Unknown error</string>
+</resources>
