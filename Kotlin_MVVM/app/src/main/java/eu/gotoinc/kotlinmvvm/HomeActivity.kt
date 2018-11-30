@@ -28,11 +28,8 @@ class HomeActivity : AppCompatActivity() {
         viewModel.liveErrorEvent.observe(this,
             Observer { resId -> Snackbar.make(container, resId, Snackbar.LENGTH_LONG).show() })
 
-        viewModel.liveUser.observe(this, Observer { userResponse ->
-            if (userResponse != null) {
-                showFragment(InfoFragment.newInstance(), true)
-            }
-        })
+        viewModel.liveUser.observe(this,
+            Observer { userResponse -> if (userResponse != null) showFragment(InfoFragment.newInstance(), true) })
     }
 
     private fun showFragment(fragment: Fragment, isBackStackEnabled: Boolean) {

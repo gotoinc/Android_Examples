@@ -16,7 +16,9 @@ class UserPagedDataSource(private val api: ApiContract, private val liveErrorEve
             .subscribeOn(Schedulers.io())
             .subscribe(
                 { listPaginationResponse ->
-                    callback.onResult(listPaginationResponse.data, null, listPaginationResponse.page + 1)
+                    callback.onResult(listPaginationResponse.data,
+                        null,
+                        listPaginationResponse.page + 1)
                 },
                 { throwable -> liveErrorEvent.setValue(R.string.error_message) }
             )
