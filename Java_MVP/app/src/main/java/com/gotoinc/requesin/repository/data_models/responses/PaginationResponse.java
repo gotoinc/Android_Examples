@@ -21,7 +21,7 @@ public class PaginationResponse<T> {
     @SerializedName("total_pages")
     private int totalPages;
     @Expose(serialize = false)
-    @SerializedName(value = "data", alternate = {})
+    @SerializedName(value = "data")
     private T data;
 
     public int getPage() {

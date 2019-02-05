@@ -1,9 +1,10 @@
-package com.gotoinc.requesin.view.home;
+package com.gotoinc.requesin.mvp.common.adapter.diff_util;
 
-import com.gotoinc.requesin.view._model.User;
+import com.gotoinc.requesin.mvp.common.data_model.User;
 
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 
 /**
@@ -14,7 +15,7 @@ public class UsersDiffUtilCallback extends DiffUtil.Callback {
     private final List<User> oldList;
     private final List<User> newList;
 
-    public UsersDiffUtilCallback(List<User> oldList, List<User> newList) {
+    public UsersDiffUtilCallback(@NonNull List<User> oldList, @NonNull List<User> newList) {
         this.oldList = oldList;
         this.newList = newList;
     }

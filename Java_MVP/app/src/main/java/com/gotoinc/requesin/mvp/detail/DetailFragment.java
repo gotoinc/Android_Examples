@@ -1,4 +1,4 @@
-package com.gotoinc.requesin.view.detail;
+package com.gotoinc.requesin.mvp.detail;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.gotoinc.requesin.R;
-import com.gotoinc.requesin.view._model.User;
+import com.gotoinc.requesin.mvp.common.data_model.User;
 import com.squareup.picasso.Picasso;
 
 import androidx.annotation.NonNull;

@@ -6,7 +6,6 @@ import com.gotoinc.requesin.repository.data_models.responses.UserResponse;
 import java.util.List;
 
 import io.reactivex.Single;
-import retrofit2.Response;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
@@ -16,5 +15,5 @@ import retrofit2.http.Query;
  */
 public interface RetrofitRequest {
     @GET(ApiConsts.API_VERSION + ApiConsts.LIST_OF_USERS)
-    Single<Response<PaginationResponse<List<UserResponse>>>> getUsersList(@Query("page") int page);
+    Single<PaginationResponse<List<UserResponse>>> getUsersList(@Query("page") int page);
 }

@@ -1,4 +1,4 @@
-package com.gotoinc.requesin.view._model;
+package com.gotoinc.requesin.mvp.common.data_model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -15,19 +15,19 @@ import androidx.annotation.NonNull;
  * GoTo Inc.
  */
 public class User implements Parcelable {
-    private int id;
-    private String firstName;
-    private String lastName;
-    private String avatar;
+    private final int id;
+    private final String firstName;
+    private final String lastName;
+    private final String avatar;
 
-    public User(int id, String firstName, String lastName, String avatar) {
+    private User(int id, String firstName, String lastName, String avatar) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.avatar = avatar;
     }
 
-    protected User(Parcel in) {
+    private User(Parcel in) {
         id = in.readInt();
         firstName = in.readString();
         lastName = in.readString();
@@ -73,9 +73,7 @@ public class User implements Parcelable {
         return avatar;
     }
 
-
-
-    public static User from(@NonNull UserResponse response) {
+    private static User from(@NonNull UserResponse response) {
         return new User(response.getId(), response.getFirstName(), response.getLastName(), response.getAvatar());
     }
 

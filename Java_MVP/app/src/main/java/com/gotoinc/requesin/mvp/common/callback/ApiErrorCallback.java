@@ -1,10 +1,10 @@
-package com.gotoinc.requesin.view;
+package com.gotoinc.requesin.mvp.common.callback;
 
 /**
  * Created by Illia Derevianko on 26.11.18.
  * GoTo Inc.
  */
-public interface BaseViewContract {
+public interface ApiErrorCallback {
     void onError();
     void onError(String message);
     void onTimeout();

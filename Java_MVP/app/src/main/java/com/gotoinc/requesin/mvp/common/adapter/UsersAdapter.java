@@ -1,18 +1,19 @@
-package com.gotoinc.requesin.view.home;
+package com.gotoinc.requesin.mvp.common.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.gotoinc.requesin.R;
-import com.gotoinc.requesin.view._model.User;
+import com.gotoinc.requesin.mvp.common.data_model.User;
+import com.gotoinc.requesin.mvp.home.HomeFragment;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.cardview.widget.CardView;
@@ -23,22 +24,18 @@ import androidx.recyclerview.widget.RecyclerView;
  * GoTo Inc.
  */
 public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserHolder> {
-    private Context context;
+    private final Context context;
     private List<User> users;
 
-    private HomeFragment.OnItemClick callback;
+    private final HomeFragment.OnItemClick callback;
 
-    public UsersAdapter(Context context, List<User> users, HomeFragment.OnItemClick callback) {
+    public UsersAdapter(Context context, HomeFragment.OnItemClick callback) {
         this.context = context;
-        this.users = users;
+        this.users = null;
         this.callback = callback;
     }
 
-    public List<User> getData() {
-        return users;
-    }
-
-    public void setData(List<User> users) {
+    public void setData(@Nullable List<User> users) {
         this.users = users;
     }
 
@@ -56,13 +53,13 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserHolder> 
 
     @Override
     public int getItemCount() {
-        return users.size();
+        return users != null ? users.size() : 0;
     }
 
     class UserHolder extends RecyclerView.ViewHolder {
-        private CardView root;
-        private AppCompatImageView image;
-        private AppCompatTextView txtFullname;
+        private final CardView root;
+        private final AppCompatImageView image;
+        private final AppCompatTextView txtFullname;
 
         UserHolder(View v) {
             super(v);

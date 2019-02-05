@@ -5,20 +5,12 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+
+        <item name="android:windowBackground">@color/colorCardViewBg</item>
     </style>
 
     <style name="TextStyle">
         <item name="android:textColor">@android:color/black</item>
-    </style>
-
-    <style name="TextStyle.Text_H1_Medium">
-        <item name="android:textSize">24sp</item>
-        <item name="android:fontFamily">sans-serif-medium</item>
-    </style>
-
-    <style name="TextStyle.Text_H1">
-        <item name="android:textSize">24sp</item>
-        <item name="android:fontFamily">sans-serif</item>
     </style>
 
     <style name="TextStyle.Text_H2_Medium">
@@ -33,11 +25,6 @@
 
     <style name="TextStyle.Text_H3">
         <item name="android:textSize">16sp</item>
-        <item name="android:fontFamily">sans-serif</item>
-    </style>
-
-    <style name="TextStyle.Text_H4">
-        <item name="android:textSize">14sp</item>
         <item name="android:fontFamily">sans-serif</item>
     </style>
 
