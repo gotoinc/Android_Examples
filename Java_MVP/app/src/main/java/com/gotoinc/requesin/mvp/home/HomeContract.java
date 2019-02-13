@@ -13,6 +13,7 @@ import java.util.List;
 
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
+import io.reactivex.disposables.Disposable;
 
 /**
  * Created by Illia Derevianko on 26.11.18.
@@ -46,6 +47,6 @@ public interface HomeContract {
     }
 
     interface Model extends MvpModel {
-        void getUsersList(int page, @NonNull UsersLoadedCallback callback);
+        Disposable getUsersList(int page, @NonNull UsersLoadedCallback callback);
     }
 }

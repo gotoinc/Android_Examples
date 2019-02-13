@@ -1,5 +1,7 @@
 package com.gotoinc.requesin.di;
 
+import android.util.Log;
+
 import com.gotoinc.requesin.TestApp;
 import com.gotoinc.requesin.mvp.common.mvp.MvpPresenter;
 import com.gotoinc.requesin.mvp.home.HomeContract;
@@ -44,8 +46,10 @@ public class PresentersContainerImpl implements PresentersContainer {
     public <T extends MvpPresenter> T of(@NonNull String tag, @NonNull Class<T> mvpPresenter) {
         if(mvpPresenter.isAssignableFrom(HomePresenter.class)) {
             if(presentersStorage.containsKey(tag)) {
+                Log.d("myLog", "get presenter from storage: " + tag);
                 return (T) presentersStorage.get(tag);
             } else {
+                Log.d("myLog", "create new presenter: " + tag);
                 HomeContract.Model model = new HomeModel(retrofitInit.get());
                 HomeContract.State state = new HomeState();
                 MvpPresenter presenter = new HomePresenter(model, state, TestApp.getAppContext());
@@ -59,6 +63,7 @@ public class PresentersContainerImpl implements PresentersContainer {
 
     @Override
     public void release(@NonNull String tag) {
+        Log.d("myLog", "release: " + tag);
         if(presentersStorage.get(tag) != null) presentersStorage.remove(tag);
     }
 }

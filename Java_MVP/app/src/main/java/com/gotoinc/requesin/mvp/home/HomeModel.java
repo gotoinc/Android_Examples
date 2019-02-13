@@ -1,5 +1,7 @@
 package com.gotoinc.requesin.mvp.home;
 
+import android.util.Log;
+
 import com.gotoinc.requesin.mvp.common.callback.UsersLoadedCallback;
 import com.gotoinc.requesin.mvp.common.data_model.User;
 import com.gotoinc.requesin.repository.RetrofitRequest;
@@ -9,6 +11,7 @@ import java.net.SocketTimeoutException;
 
 import androidx.annotation.NonNull;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.HttpException;
 
@@ -24,11 +27,12 @@ public class HomeModel implements HomeContract.Model {
     }
 
     @Override
-    public void getUsersList(int page, @NonNull UsersLoadedCallback callback) {
-        request.getUsersList(page)
+    public Disposable getUsersList(int page, @NonNull UsersLoadedCallback callback) {
+        return request.getUsersList(page)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe(response -> {
+                Log.d("myLog", "list of users got");
                 callback.usersLoaded(User.from(response.getData()), response.getTotalPages() > page);
             }, e -> {
                     e.printStackTrace();

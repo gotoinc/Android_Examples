@@ -3,6 +3,7 @@ package com.gotoinc.requesin.mvp.home;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.util.Log;
 
 import com.gotoinc.requesin.R;
 import com.gotoinc.requesin.mvp.common.data_model.User;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import io.reactivex.disposables.CompositeDisposable;
 
 /**
  * Created by Illia Derevianko on 01.02.19.
@@ -32,6 +34,8 @@ public class HomePresenter implements HomeContract.Presenter {
     private boolean isLoading;
     private int nextPage = 1;
 
+    private CompositeDisposable disposables = new CompositeDisposable();
+
     public HomePresenter(@NonNull HomeContract.Model model, @NonNull HomeContract.State state, Context appContext) {
         this.context = appContext;
         this.model = model;
@@ -44,6 +48,7 @@ public class HomePresenter implements HomeContract.Presenter {
 
     @Override
     public void attachView(@NonNull HomeContract.View view) {
+        Log.d("myLog", "attach view to presenter");
         this.view = view;
     }
 
@@ -51,6 +56,7 @@ public class HomePresenter implements HomeContract.Presenter {
     @Override
     public void load(Bundle savedState) {
         if(savedState != null && savedState.containsKey(EXTRA_NEXT_PAGE)) {
+            Log.d("myLog", "load from saved state");
             state.setUsers(savedState.getParcelableArrayList(EXTRA_USERS));
             state.setCurrentLoadedPage(savedState.getInt(EXTRA_NEXT_PAGE));
             nextPage = state.getCurrentLoadedPage() + 1;
@@ -61,13 +67,15 @@ public class HomePresenter implements HomeContract.Presenter {
     @Override
     public void load() {
         if(isNextPageExists && !isLoading) {
+            Log.d("myLog", "load from API");
             isLoading = true;
-            model.getUsersList(nextPage, this);
+            disposables.add(model.getUsersList(nextPage, this));
         }
     }
 
     @Override
     public void usersLoaded(List<User> users, boolean isNextPageExists) {
+        Log.d("myLog", "users was got in presenter");
         state.setUsers(users);
         state.setCurrentLoadedPage(nextPage);
         nextPage++;
@@ -86,11 +94,14 @@ public class HomePresenter implements HomeContract.Presenter {
 
     @Override
     public void detachView() {
+        Log.d("myLog", "detach view from presenter");
         view = null;
     }
 
     @Override
     public void destroy() {
+        Log.d("myLog", "destroy presenter");
+        disposables.clear();
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.gotoinc.requesin.mvp.home;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,9 @@ import com.gotoinc.requesin.mvp.common.adapter.diff_util.UsersDiffUtilCallback;
 import com.gotoinc.requesin.mvp.common.data_model.User;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,7 +31,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * Created by Illia Derevianko on 26.11.18.
  * GoTo Inc.
  */
-public class HomeFragment extends Fragment implements HomeContract.View {
+public final class HomeFragment extends Fragment implements HomeContract.View {
     private FrameLayout root;
     private RecyclerView rvUsers;
     private UsersAdapter adapter;
@@ -56,7 +59,7 @@ public class HomeFragment extends Fragment implements HomeContract.View {
         presenter.attachView(this);
     }
 
-    @Nullable
+    @NonNull
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
