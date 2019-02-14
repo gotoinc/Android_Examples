@@ -7,7 +7,6 @@ import com.gotoinc.requesin.mvp.common.mvp.MvpPresenter;
 import com.gotoinc.requesin.mvp.home.HomeContract;
 import com.gotoinc.requesin.mvp.home.HomeModel;
 import com.gotoinc.requesin.mvp.home.HomePresenter;
-import com.gotoinc.requesin.mvp.home.HomeState;
 import com.gotoinc.requesin.repository.init.RetrofitInit;
 import com.gotoinc.requesin.repository.init.RetrofitInitImpl;
 
@@ -50,9 +49,8 @@ public class PresentersContainerImpl implements PresentersContainer {
                 return (T) presentersStorage.get(tag);
             } else {
                 Log.d("myLog", "create new presenter: " + tag);
-                HomeContract.Model model = new HomeModel(retrofitInit.get());
-                HomeContract.State state = new HomeState();
-                MvpPresenter presenter = new HomePresenter(model, state, TestApp.getAppContext());
+                HomeContract.Model model = new HomeModel();
+                MvpPresenter presenter = new HomePresenter(model, retrofitInit.get(), TestApp.getAppContext());
                 presentersStorage.put(tag, presenter);
                 return (T) presenter;
             }

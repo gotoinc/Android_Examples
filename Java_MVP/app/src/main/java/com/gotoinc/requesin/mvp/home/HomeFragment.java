@@ -2,7 +2,6 @@ package com.gotoinc.requesin.mvp.home;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +15,7 @@ import com.gotoinc.requesin.mvp.common.adapter.diff_util.UsersDiffUtilCallback;
 import com.gotoinc.requesin.mvp.common.data_model.User;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -121,24 +118,31 @@ public final class HomeFragment extends Fragment implements HomeContract.View {
     }
 
     @Override
-    public void showUsers(@NonNull List<User> users) {
-        if(adapterData == null) {
-            adapterData = new ArrayList<>(users);
-            adapter.setData(adapterData);
-            adapter.notifyItemRangeInserted(0, adapterData.size());
-        } else {
-            users.addAll(0, adapterData);
-            UsersDiffUtilCallback usersDiffUtilCallback = new UsersDiffUtilCallback(adapterData, users);
-            DiffUtil.DiffResult result = DiffUtil.calculateDiff(usersDiffUtilCallback);
-            adapterData = users;
-            adapter.setData(adapterData);
-            result.dispatchUpdatesTo(adapter);
+    public void drawState(@NonNull HomeContract.Model model) {
+        if(model.isError() && model.isErrorShowing())
+            Snackbar.make(root, model.getErrorMessage(), Snackbar.LENGTH_SHORT).addCallback(new Snackbar.Callback() {
+                @Override
+                public void onDismissed(Snackbar transientBottomBar, int event) {
+                    super.onDismissed(transientBottomBar, event);
+                    presenter.dismissErrorView();
+                }
+            }).show();
+        else {
+            if(model.isUsersLoaded()) {
+                if (adapterData == null) {
+                    adapterData = new ArrayList<>(model.getUsers());
+                    adapter.setData(adapterData);
+                    adapter.notifyItemRangeInserted(0, adapterData.size());
+                } else {
+                    model.getUsers().addAll(0, adapterData);
+                    UsersDiffUtilCallback usersDiffUtilCallback = new UsersDiffUtilCallback(adapterData, model.getUsers());
+                    DiffUtil.DiffResult result = DiffUtil.calculateDiff(usersDiffUtilCallback);
+                    adapterData = model.getUsers();
+                    adapter.setData(adapterData);
+                    result.dispatchUpdatesTo(adapter);
+                }
+            }
         }
-    }
-
-    @Override
-    public void showSnackbar(@NonNull String message) {
-        Snackbar.make(root, message, Snackbar.LENGTH_SHORT);
     }
 
     public interface OnItemClick {

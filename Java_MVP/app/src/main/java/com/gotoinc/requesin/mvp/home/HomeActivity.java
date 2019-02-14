@@ -9,7 +9,7 @@ import com.gotoinc.requesin.mvp.detail.DetailFragment;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class HomeActivity extends AppCompatActivity implements HomeNavigation {
+public final class HomeActivity extends AppCompatActivity implements HomeNavigation {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -19,7 +19,7 @@ import androidx.fragment.app.Fragment;
  * Created by Illia Derevianko on 26.11.18.
  * GoTo Inc.
  */
-public class DetailFragment extends Fragment {
+public final class DetailFragment extends Fragment {
     private static final String ARG_USER = "ARG_USER";
 
     private AppCompatImageView image;

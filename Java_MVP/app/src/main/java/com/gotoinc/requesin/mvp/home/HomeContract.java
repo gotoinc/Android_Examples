@@ -1,6 +1,7 @@
 package com.gotoinc.requesin.mvp.home;
 
 import android.os.Bundle;
+import android.os.Parcelable;
 
 import com.gotoinc.requesin.mvp.common.callback.UsersLoadedCallback;
 import com.gotoinc.requesin.mvp.common.data_model.User;
@@ -25,6 +26,7 @@ public interface HomeContract {
 
         void load(Bundle savedState);
         void load();
+        void dismissErrorView();
 
         void saveState(Bundle outState);
 
@@ -34,19 +36,20 @@ public interface HomeContract {
     }
 
     interface View extends MvpView {
-        void showUsers(@NonNull List<User> users);
-        void showSnackbar(@NonNull String message);
+        void drawState(@NonNull HomeContract.Model model);
     }
 
-    interface State extends MvpState {
+    interface Model extends MvpModel, Parcelable {
+        boolean isError();
+        void setError(boolean flag);
+        boolean isErrorShowing();
+        void setErrorShowing(boolean flag);
+        String getErrorMessage();
+        void  setErrorMessage(@NonNull String msg);
         boolean isUsersLoaded();
         @NonNull List<User> getUsers();
         void setUsers(@NonNull List<User> users);
         int getCurrentLoadedPage();
         void setCurrentLoadedPage(@IntRange(from = 1, to = 10) int page);
-    }
-
-    interface Model extends MvpModel {
-        Disposable getUsersList(int page, @NonNull UsersLoadedCallback callback);
     }
 }
