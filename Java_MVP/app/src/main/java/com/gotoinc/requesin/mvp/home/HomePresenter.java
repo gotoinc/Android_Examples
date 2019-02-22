@@ -67,7 +67,7 @@ public final class HomePresenter implements HomeContract.Presenter {
             Log.d("myLog", "load from saved state");
             nextPage = model.getCurrentLoadedPage() + 1;
             checkView.doIt(view, () -> view.drawState(model));
-        }
+        } else load();
     }
 
     @Override
